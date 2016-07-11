@@ -12,6 +12,19 @@
   :target + section{
     display:block;
   }
+  .copy code span{
+    display:inline-block;
+    animation: rotate 1s linear infinite;
+  }
+  @keyframes rotate {
+    0%{
+      transform: rotate(0) 
+    }
+
+    100%{
+      transform: rotate(360deg);
+    }
+  }
 </style>
 <script>
   document.addEventListener("DOMContentLoaded", function(){
@@ -24,8 +37,19 @@
       hTag.innerHTML    = link.outerHTML;
     });
     var copy = document.querySelector("[type='checkbox']")
+    copy.addEventListener("change", function(e){
+      if(copy.checked) { 
+        document.body.className=''
+      }else{
+        document.body.className='copy'
+      }
+    })
     document.body.addEventListener("copy", function(e){
-      if(copy.checked) e.preventDefault()
+      if(copy.checked) { 
+	e.preventDefault()
+      }else{
+        document.body.className='copy'
+      }
     })
   });
 </script>
@@ -35,7 +59,7 @@
 # Grumblr Lab
 
 <label>
-<input type='checkbox' name='prevent-copy'>
+<input type='checkbox' name='prevent-copy' checked>
   Prevent copy/paste?
 </label>
 
